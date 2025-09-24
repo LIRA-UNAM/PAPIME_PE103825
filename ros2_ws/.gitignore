@@ -1,0 +1,5 @@
+build/
+install/
+log/
+*_solved.py
+*_solved.cpp
