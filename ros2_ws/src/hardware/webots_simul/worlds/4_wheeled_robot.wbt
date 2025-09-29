@@ -344,7 +344,7 @@ Robot {
       height 640
     }
   ]
-  name "robot(1)"
+  name "pumas_rover"
   boundingObject USE R_CHASIS
   physics Physics {
   }

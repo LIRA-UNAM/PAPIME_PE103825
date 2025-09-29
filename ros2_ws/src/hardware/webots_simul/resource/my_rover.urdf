@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="robot(1)">
+<robot name="pumas_rover">
     <webots>
         <device reference="lidar" type="Lidar">
             <ros>
@@ -13,7 +13,7 @@
             <alwaysOn>true</alwaysOn>
             </ros>
         </device>
-        <plugin type="rover.my_rover_driver.MyRoverDriver" />
+        <plugin type="webots_simul.my_rover_driver.MyRoverDriver" />
 
     </webots>
 </robot>
