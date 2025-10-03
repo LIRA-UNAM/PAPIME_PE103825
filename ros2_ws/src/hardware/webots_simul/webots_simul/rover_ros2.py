@@ -18,7 +18,7 @@ class RoverRos2(Node):
         super().__init__("rover_ros2")
         
         self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.lidar_subscriber = self.create_subscription(LaserScan, '/robot_1_/lidar', self.lidar_callback, 10)
+        self.lidar_subscriber = self.create_subscription(LaserScan, '/pumas_rover/lidar', self.lidar_callback, 10)
         
         self.obstacle_detected = False
         self.turn_left = True
