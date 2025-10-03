@@ -24,26 +24,26 @@ def generate_launch_description():
         ]
     )
 
-    # # RoverRos2 node
-    # rover_ros2_node = Node(
-    #     package='webots_simul',
-    #     executable='rover_ros2',
-    #     name='rover_ros2',
-    #     output='screen'
-    # )
-    # # Camera Publisher node
-    # camera_publisher_node = Node(
-    #     package='webots_simul',
-    #     executable='camera_publisher',
-    #     name='camera_publisher',
-    #     output='screen'
-    # )
+    # RoverRos2 node
+    rover_ros2_node = Node(
+        package='webots_simul',
+        executable='rover_ros2',
+        name='rover_ros2',
+        output='screen'
+    )
+    # Camera Publisher node
+    camera_publisher_node = Node(
+        package='webots_simul',
+        executable='camera_publisher',
+        name='camera_publisher',
+        output='screen'
+    )
 
     return LaunchDescription([
         webots,
         my_rover_driver,
-#        rover_ros2_node,
-#        camera_publisher_node,
+        rover_ros2_node,
+        camera_publisher_node,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,
