@@ -3,13 +3,13 @@
     <webots>
         <device reference="lidar" type="Lidar">
             <ros>
-            <topicName>/robot_1_/lidar</topicName>
+            <topicName>/pumas_rover/lidar</topicName>
             <alwaysOn>true</alwaysOn>
             </ros>
         </device>
         <device reference="camera" type="Camera">
             <ros>
-            <topicName>/robot_1_/camera</topicName>
+            <topicName>/pumas_rover/camera</topicName>
             <alwaysOn>true</alwaysOn>
             </ros>
         </device>
