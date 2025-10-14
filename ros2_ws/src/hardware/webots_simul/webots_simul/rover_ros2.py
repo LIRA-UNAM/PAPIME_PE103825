@@ -18,7 +18,7 @@ class RoverRos2(Node):
         super().__init__("rover_ros2")
         
         self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.lidar_subscriber = self.create_subscription(LaserScan, '/robot_1_/lidar', self.lidar_callback, 10)
+        self.lidar_subscriber = self.create_subscription(LaserScan, '/pumas_rover/lidar', self.lidar_callback, 10)
         
         self.obstacle_detected = False
         self.turn_left = True
@@ -44,18 +44,15 @@ class RoverRos2(Node):
 
         command_msg = Twist()
         if self.obstacle_detected:
-            if self.turn_left and self.turn_left:
+            if self.turn_left:
                 command_msg.linear.x = -MAX_SPEED * 0.1
                 command_msg.angular.z = 0.0
-            elif self.turn_left:
-                command_msg.linear.x = MAX_SPEED * 0.1
-                command_msg.angular.z = 1.0                
             else:
                 command_msg.linear.x = MAX_SPEED * 0.1
-                command_msg.angular.z = -1.0
+                command_msg.angular.z = 0.0
         else:
-            command_msg.linear.x = MAX_SPEED * 0.1
-            command_msg.angular.z = 0.0
+            command_msg.linear.x = 0.0
+            command_msg.angular.z = MAX_SPEED * 0.1
         self.publisher.publish(command_msg)
 
 
