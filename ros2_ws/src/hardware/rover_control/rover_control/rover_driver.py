@@ -5,7 +5,7 @@ HALF_DISTANCE_BETWEEN_WHEELS = 0.42
 WHEEL_RADIUS = 0.2
 
 class MyRoverDriver:
-    def init(self, webots_node, properties):  # 👈 CORRECTO: se llama "init", no "__init__"
+    def init(self, webots_node, properties):  
         self.__robot = webots_node.robot
 
         # Configuración de motores
@@ -38,8 +38,11 @@ class MyRoverDriver:
         forward_speed = self.__target_twist.linear.x
         angular_speed = self.__target_twist.angular.z
 
-        command_motor_left = (-forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+        # command_motor_left = (-forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+        # command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+        command_motor_left  = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
         command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
+
 
         self.__left_motor_1.setVelocity(command_motor_left)
         self.__left_motor_2.setVelocity(command_motor_left)
