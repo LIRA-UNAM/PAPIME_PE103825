@@ -1,0 +1,295 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/protos/abstract/VehicleWheel.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/RoughPolymer.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.09414533538124374 -0.21966907251373036 0.9710211915333828 5.451909947142864
+  position -4.638800916804405 2.2301538615377843 0.9625829648644391
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 100 100
+  wallHeight 0.4
+}
+Robot {
+  translation -2.41 -0.11 0.33
+  children [
+    DEF RW_1 Pose {
+      translation 0.360001 -0.42 -0.2
+      rotation 0 0 1 3.1415
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 -1 0
+            suspensionSpringConstant 100000
+            suspensionDampingConstant 100000
+            suspensionAxis 0 0 1
+          }
+          device [
+            RotationalMotor {
+              name "right_motor_1"
+              maxVelocity 26
+              maxTorque 1000
+            }
+          ]
+          endPoint Slot {
+            type "vehicle wheel"
+            endPoint VehicleWheel {
+              thickness 0.15
+              tireRadius 0.13
+            }
+          }
+        }
+      ]
+    }
+    DEF RW_2 Pose {
+      translation 2.65359e-08 -0.42 -0.2
+      rotation 0 0 1 3.14159
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 -1 0
+            suspensionSpringConstant 100000
+            suspensionDampingConstant 100000
+            suspensionAxis 0 0 1
+          }
+          device [
+            RotationalMotor {
+              name "right_motor_2"
+              maxVelocity 26
+              maxTorque 1000
+            }
+          ]
+          endPoint Slot {
+            type "vehicle wheel"
+            endPoint VehicleWheel {
+              name "vehicle wheel(1)"
+              thickness 0.15
+              tireRadius 0.13
+            }
+          }
+        }
+      ]
+    }
+    DEF RW_3 Pose {
+      translation -0.36 -0.42 -0.2
+      rotation 0 0 1 3.14159
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 -1 0
+            suspensionSpringConstant 100000
+            suspensionDampingConstant 100000
+            suspensionAxis 0 0 1
+          }
+          device [
+            RotationalMotor {
+              name "right_motor_3"
+              maxVelocity 26
+              maxTorque 1000
+            }
+          ]
+          endPoint Slot {
+            type "vehicle wheel"
+            endPoint VehicleWheel {
+              name "vehicle wheel(2)"
+              thickness 0.15
+              tireRadius 0.13
+            }
+          }
+        }
+      ]
+    }
+    DEF LW_1 Pose {
+      translation 0.36 0.42 -0.2
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 -1 0
+            suspensionSpringConstant 100000
+            suspensionDampingConstant 100000
+            suspensionAxis 0 0 1
+          }
+          device [
+            RotationalMotor {
+              name "left_motor_1"
+              maxVelocity 26
+              maxTorque 1000
+            }
+          ]
+          endPoint Slot {
+            type "vehicle wheel"
+            endPoint VehicleWheel {
+              name "vehicle wheel(3)"
+              thickness 0.15
+              tireRadius 0.13
+            }
+          }
+        }
+      ]
+    }
+    DEF LW_2 Pose {
+      translation 2.65359e-08 0.42 -0.2
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 -1 0
+            suspensionSpringConstant 100000
+            suspensionDampingConstant 100000
+            suspensionAxis 0 0 1
+          }
+          device [
+            RotationalMotor {
+              name "left_motor_2"
+              maxVelocity 26
+              maxTorque 1000
+            }
+          ]
+          endPoint Slot {
+            type "vehicle wheel"
+            endPoint VehicleWheel {
+              name "vehicle wheel(4)"
+              thickness 0.15
+              tireRadius 0.13
+            }
+          }
+        }
+      ]
+    }
+    DEF LW_3 Pose {
+      translation -0.36 0.42 -0.2
+      children [
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 -1 0
+            suspensionSpringConstant 100000
+            suspensionDampingConstant 100000
+            suspensionAxis 0 0 1
+          }
+          device [
+            RotationalMotor {
+              name "left_motor_3"
+              maxVelocity 26
+              maxTorque 1000
+            }
+          ]
+          endPoint Slot {
+            type "vehicle wheel"
+            endPoint VehicleWheel {
+              name "vehicle wheel(5)"
+              thickness 0.15
+              tireRadius 0.13
+            }
+          }
+        }
+      ]
+    }
+    DEF CHASIS Solid {
+      children [
+        DEF R_CHASIS Shape {
+          appearance RoughPolymer {
+            baseColor 0 0 0
+          }
+          geometry Box {
+            size 1 0.7 0.3
+          }
+        }
+      ]
+      name "main chasis"
+      boundingObject USE R_CHASIS
+      physics Physics {
+        density -1
+        mass 20
+      }
+    }
+    DEF WB_F Solid {
+      translation 0.4 0 0.2
+      children [
+        DEF WC_F Shape {
+          appearance RoughPolymer {
+            baseColor 0 0 0
+          }
+          geometry Box {
+            size 0.2 0.7 0.1
+          }
+        }
+      ]
+      boundingObject USE WC_F
+      physics Physics {
+        density -1
+        mass 2
+      }
+    }
+    DEF WB_T Solid {
+      translation -0.4 0 0.2
+      children [
+        DEF WC_T Shape {
+          appearance RoughPolymer {
+            baseColor 0 0 0
+          }
+          geometry Box {
+            size 0.2 0.7 0.1
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE WC_T
+      physics Physics {
+        density -1
+        mass 2
+      }
+    }
+    DEF WB_D Solid {
+      translation 0 -0.28 0.2
+      children [
+        DEF WC_D Shape {
+          appearance RoughPolymer {
+            baseColor 0 0 0
+          }
+          geometry Box {
+            size 0.6 0.15 0.1
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE WC_D
+      physics Physics {
+        density -1
+        mass 2
+      }
+    }
+    DEF WB_I Solid {
+      translation 0 0.28 0.2
+      children [
+        DEF WC_I Shape {
+          appearance RoughPolymer {
+            baseColor 0 0 0
+          }
+          geometry Box {
+            size 0.6 0.15 0.1
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject USE WC_I
+      physics Physics {
+        density -1
+        mass 2
+      }
+    }
+  ]
+  name "pumas_rover"
+  boundingObject USE R_CHASIS
+  physics Physics {
+  }
+  controller "<extern>"
+}
