@@ -12,8 +12,8 @@ class RoverRos2(Node):
     def rover_movement_callback(self):
         msg = Twist()
 
-        msg.linear.x = 0.5
-        msg.angular.z = 0.0
+        msg.linear.x = 0.0
+        msg.angular.z = 0.5
 
         self.publisher.publish(msg)
 
@@ -26,4 +26,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
