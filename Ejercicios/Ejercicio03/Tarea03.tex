@@ -1,0 +1,145 @@
+\documentclass[letter,11pt]{article} % Tamaño de página y letra, tipo de documento
+\usepackage[top = 2.0cm, bottom = 2.0cm, left = 2.0cm, right = 2.0cm]{geometry}
+
+%% Comandos para codificación de archivo
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\spanishdecimal{.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliotecas útiles %%
+\usepackage{multirow} % Múltiples renglones
+\usepackage{multicol} % Múltiples columnas
+\usepackage{booktabs} % Tablas más estéticas
+\usepackage{graphicx} % Agregar figuras
+\usepackage{setspace}  % Quita sangría de inicio de párrafos
+\setlength{\parindent}{0in}
+\usepackage{float} % Control de ubicación de figuras
+\usepackage{fancyhdr} % Formato de encabezados
+\usepackage{amsmath,mathtools,amsfonts,amssymb} % Símbolos matemáticos
+\usepackage{xcolor} % Texto y ecuaciones en color
+\usepackage{pdfpages} % Insertar PDFs
+\usepackage{hyperref}
+\newcommand{\Heaviside}{\mathrm{H}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Encabezado y pie de página %%
+\pagestyle{fancy}  
+\fancyhf{} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lhead{\footnotesize Simulación Rover Tarea 03} 
+\rhead{\footnotesize LIRA} 
+\cfoot{\footnotesize \thepage} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Aquí comienza la edición del documento
+
+\begin{document}
+	\thispagestyle{empty} % Sin encabezado en la primera página
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%% Datos para la primera página
+	\begin{tabular} {p{15cm} p{2cm}}
+		&  \multirow{5}{*}{\includegraphics[scale=0.11]{UNAM_INGENIERIA}}\\
+		{\large \bf Laboratorio de Innovación y Robótica Avanzada} & \\
+		{\large \bf LIRA} & \\
+		UNAM | FI & \\
+		&  \\
+		\hline
+	\end{tabular} 
+	
+	\vspace*{0.3cm} 
+	
+	\begin{center}
+		{\Large \bf Tarea 03} \\
+		{\bf {\normalsize Secuencia de comandos}} \\
+		\vspace{2mm} 
+	\end{center}
+	
+	%Documento
+	
+	\section{Secuencias en un robot}
+	
+	\textbf{¿Que es una secuencia?}
+	
+    Una secuencia es un conjunto de instrucciones ordenadas que el robot ejecuta una tras otra. \\
+
+    Hacer secuencias en un robot sirve para ordenar y controlar paso a paso las acciones que debe realizar, de forma lógica y estructurada. En lugar de que el rover haga todo al mismo tiempo o sin control, las secuencias permiten que actúe según un plan, reaccionando a sensores, tiempos o condiciones específicas. \\
+    
+	\textbf{Ejemplo de una secuencia para el rover:}
+    \begin{enumerate}
+        \item {Esperar 2 segundos}
+        \item {Avanzar derecho durante 5 segundos}
+        \item {Detener el rover}
+        \item {Girar a la izquierda 90 grados}
+        \item {Avanza derecho 3 segundos}
+        \item {Detener el rover}
+    \end{enumerate}
+	
+	\section{Problema para el rover}
+	
+	El objetivo de esta tarea es resolver problemas que se apeguen a la vida real mediante secuencias, es decir, plantearemos una situación ficticia donde le daremos al rover pasos a seguir para completar la misión con ayuda del simulador.\\ 
+
+    \textbf{Planteamiento del problema}
+    
+	Eres un ingeniero de la NASA que trabaja en el ROVER-PAPIME-25, el robot en el que estan trabajando será enviado a Marte para la exploración de la zona, tu tarea es asegurar que el robot funcione correctamente después del aterrizaje, para lograr eso tu superior quiere la siguiente secuencia implementada en el simulador del robot:\\
+
+    "Después de que el rover aterrice en la superficie marciana, deberá esperar 5 segundos antes de avanzar, simulando la preparación de los motores. A continuación, deberá desplazarse en línea recta durante 5 segundos. Luego, desde el punto donde se detuvo, esperará 2 segundos y girará sobre su propio eje, con el fin de prepararse para la siguiente maniobra. En esta fase, el rover deberá trazar una trayectoria con forma de cuadrado, en la dirección que se prefiera. Finalmente, una vez completado el cuadrado, el rover deberá trazar un círculo hacia el lado opuesto al del recorrido anterior."
+
+    \section{Solución del problema}
+	
+	\begin{enumerate}
+		\item \textbf{ Dirigirnos a PAPIME\_PE103825/ros2\_ws/src/hardware/rover\_sequence/rover\_sequence}
+		
+		Abrir el archivo rover\_sequence.py
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\linewidth]{sequence.jpg}
+            \caption{Archivo para editar}
+			\label{seq}
+		\end{figure}
+		
+		\item \textbf{Copia y pega}
+
+        Debes de copiar el código que aparece en esta sección, este representa la lista de movimientos para la solución del problema, pegalo en la linea 13 del archivo. \textbf{Al estar en python recuerda tener cuidado con la tabulación.}\\
+        \begin{verbatim}
+        self.sequence = [
+            {"x": 0.0, "z": 0.0, "duration": 5.0},
+            {"x": 0.0, "z": 0.5, "duration": 5.0},
+            {"x": 0.0, "z": 0.0, "duration": 2.0},
+            {"x": -0.5, "z": 0.0, "duration": 1.5},
+            {"x": 0.0, "z": 0.5, "duration": 10.0},
+            {"x": -0.5, "z": 0.0, "duration": 2.5},
+            {"x": 0.0, "z": 0.5, "duration": 10.0},
+            {"x": -0.5, "z": 0.0, "duration": 2.5},
+            {"x": 0.0, "z": 0.5, "duration": 10.0},
+            {"x": -0.5, "z": 0.0, "duration": 2.5},
+            {"x": 0.0, "z": 0.5, "duration": 10.0},
+            {"x": -0.5, "z": 0.0, "duration": 2.5},
+            {"x": 0.5, "z": 2.0, "duration": 10.0},
+        ]
+        \end{verbatim}
+
+        \textbf{Nota: 'x' representa el movimiento angular, 'z' define el movimiento lineal y 'duración' es el tiempo de ejecución dado en segundos.}
+
+        \item \textbf{Ejecución}
+		\begin{itemize}
+		    \item Abrir una terminal (cntrl + alt+ t)
+            \item cd PAPIME\_PE103825/ros2\_ws
+            \item colcon build
+            \item source install/setup.bash
+            \item ros2 launch rover\_sequence rover\_launch.py
+		\end{itemize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{rover.jpeg}
+			\caption{Inicio de la simulación}
+			\label{rover}
+		\end{figure}
+    \end{enumerate}
+    
+    \section{Experimentación}
+		Una vez observado el funcionamiento de la simulación de la secuencia del rover, experimenta creando tus propias combinaciones y probando diferentes valores. Añade o elimina etapas para comprender de manera más profunda cómo opera el sistema.\\
+
+    \textbf{Tarea:} A partir de la secuencia presentada en este documento, realiza la simulación de forma inversa. Es decir, si en la secuencia original el rover avanzaba, ahora deberá retroceder; y si giraba hacia la derecha, deberá hacerlo hacia la izquierda, y viceversa.
+	
+\end{document}
