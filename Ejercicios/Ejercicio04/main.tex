@@ -1,0 +1,177 @@
+\documentclass[letter,11pt]{article} % Tamaño de página y letra, tipo de documento
+\usepackage[top = 2.0cm, bottom = 2.0cm, left = 2.0cm, right = 2.0cm]{geometry}
+
+%% Comandos para codificación de archivo
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\spanishdecimal{.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliotecas útiles %%
+\usepackage{multirow} % Múltiples renglones
+\usepackage{multicol} % Múltiples columnas
+\usepackage{booktabs} % Tablas más estéticas
+\usepackage{graphicx} % Agregar figuras
+\usepackage{setspace}  % Quita sangría de inicio de párrafos
+\setlength{\parindent}{0in}
+\usepackage{float} % Control de ubicación de figuras
+\usepackage{fancyhdr} % Formato de encabezados
+\usepackage{listings} % Para código fuente
+\usepackage{amsmath,mathtools,amsfonts,amssymb} % Símbolos matemáticos
+\usepackage{xcolor} % Texto y ecuaciones en color
+\usepackage{pdfpages} % Insertar PDFs
+\usepackage{hyperref}
+\newcommand{\Heaviside}{\mathrm{H}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Encabezado y pie de página %%
+\pagestyle{fancy}  
+\fancyhf{} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lhead{\footnotesize Simulación Rover Tarea 04} 
+\rhead{\footnotesize LIRA} 
+\cfoot{\footnotesize \thepage} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Aquí comienza la edición del documento
+
+\begin{document}
+	\thispagestyle{empty} % Sin encabezado en la primera página
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%% Datos para la primera página
+	\begin{tabular} {p{15cm} p{2cm}}
+		&  \multirow{5}{*}{\includegraphics[scale=0.28]{UNAM_logo.png}}\\
+		{\large \bf Laboratorio de Innovación y Robótica Avanzada} & \\
+		{\large \bf LIRA} & \\
+		UNAM | FI & \\
+		&  \\
+		\hline
+	\end{tabular} 
+	
+	\vspace*{0.3cm} 
+	
+	\begin{center}
+		{\Large \bf Tarea 04} \\
+		{\bf {\normalsize Reconocimiento de objetos mediante visión parte 1}} \\
+		\vspace{2mm} 
+	\end{center}
+	
+	%Documento
+	
+	\section{Visión artificial}
+	
+	\textbf{¿Que es la visión artificial?}
+	
+    En la inteligencia artificial la visión es la parte que entrena a computadoras y sistemas para identificar, procesar e interpretar datos visuales del mundo real mediante imágenes y vídeos, de manera similar a la visión humana. Utiliza algoritmos de machine learning y redes neuronales para analizar patrones y tomar decisiones automatizadas con alta precisión. \\
+
+     \\
+    
+	\textbf{Ejemplos de entrenamiento para el rover:}
+    \begin{enumerate}
+        \item {Evasión de obstaculos como rocas}
+        \item {Detección y clasificación de objetos}
+        \item {Navegación autónoma}
+        \item {Reconocimiento de terrenos}
+        \item {Seguimiento de objetivos}
+        \item {Inspección visual}
+    \end{enumerate}
+	
+	\section{Problema para el rover}
+	
+	El objetivo de esta tarea es aprender a utilizar una computadora con ayuda de una cámara para identificar objetos que se puedan presentar en nuestro camino, el ejemplo que utilizaremos sera una roca como la de la imagen.\\ 
+
+    \begin{figure}[H]
+			\centering
+			\includegraphics[width=0.2\linewidth]{Piedra.jpeg}
+            \caption{Ejemplo de piedra}
+			\label{seq}
+		\end{figure}
+
+    \section{Instalación de Labelme}
+
+    Para evitar conflictos se debe untilizar un entorno virtual 
+    
+    \begin{enumerate}
+        \item {(Ubuntu 24.04) Abrir una terminal}
+        \item {Instalación del entorno virtual}
+        \begin{lstlisting}
+           sudo apt install python3-venv 
+        \end{lstlisting} 
+        \item {Crear y activar el entorno virtual}
+        \begin{lstlisting}
+           python3 -m venv <your-venv-name>        #crea venv
+           source <your-venv-name>/bin/activate    #activa venv
+        \end{lstlisting} 
+        \item {Dentro del entorno virtual se instala LabelMe}
+        \begin{lstlisting}
+           pip install labelme 
+        \end{lstlisting} 
+        \item {Ejecutar aplicación}
+        \begin{lstlisting}
+           labelme 
+        \end{lstlisting} 
+    \end{enumerate}
+    
+    \section{Selección de objetos para entrenamiento}
+        \begin{enumerate}
+            \item Abrir el directorio que contiene las imagenes
+            (PAPIME\_PE103825/Ejercicios/Ejercicio04/Im\_Entrenamiento)
+            \begin{figure}[H]
+    			\centering
+    			\includegraphics[width=0.6\linewidth]{Directorio.png}
+                \caption{Selección carpeta}
+    			\label{seq}
+    		\end{figure}
+                \begin{figure}[H]
+        			\centering
+        			\includegraphics[width=0.6\linewidth]{Carpeta.png}
+                    \caption{Selección carpeta}
+        			\label{seq}
+        		\end{figure}
+            \item Seleccionar la herramienta Create Rectangle ubicada en el menú de herramientas del lado izquierdo de la pantalla
+            \item Encerrar en un rectángulo el objeto a reconocer lo más justo posible.
+            \item Nombrar el objeto y seleccionar ok.
+            \begin{figure}[H]
+    			\centering
+    			\includegraphics[width=0.5\linewidth]{Instrucciones.png}
+                \caption{Nombre de objeto}
+    			\label{seq}
+    		\end{figure}
+            \item Seleccionar Next Image del menú de herramientas superior
+            \item Selecciona save y cuando aparezca el menú de la imagen hacer clck en save nuevamente
+            \begin{figure}[H]
+        			\centering
+        			\includegraphics[width=0.6\linewidth]{Guardar.png}
+                    \caption{Guardar}
+        			\label{seq}
+        		\end{figure}
+            \item Repetir este proceso con todas las imagenes de la carpeta
+            \item Mover todos los archivos .json a una carpeta nueva que solo contenga estos archivos
+            \\
+            \\
+            cd PAPIME\_PE103825/Ejercicios/Ejercicio04/Im\_Entrenamiento
+            \\
+            mv *.json /home/\<usuario\>/PAPIME\_PE103825/Ejercicios/Ejercicio04/Im\_Entrenado
+        \end{enumerate}
+
+        \section{Funciones básicas de Labelme}
+        \textbf{Edit: }Crear figuras para las etiquetas, Ctrl + R para crear rectángulos. \\
+
+        \textbf{Next Image: }Hacer clic después de guardar los cambios. Si no se guardan, el sistema lo solicitará.\\
+        
+        \textbf{Save: }Guarda los cambios y crea un archivo .json con el mismo nombre de la imagen, no lo cambies.
+        Debe existir una imagen con su archivo .json correspondiente.\\
+        
+        \textbf{Edit Polygons: }Si alguna forma o etiqueta es incorrecta, puedes corregirla con esta herramienta.\\
+        
+        \textbf{Label List: }En esta sección puedes verificar todas las etiquetas que has creado. Es muy importante que cada etiqueta coincida correctamente con su polígono correspondiente. Si hay errores o desajustes, el modelo no aprenderá de manera efectiva.\\
+        
+        \textbf{Polygon Labels: }Durante la sesión actual de LabelMe, esta sección muestra todas las etiquetas que has asignado a las imágenes. Algunas imágenes pueden contener menos objetos para etiquetar que otras, lo cual se reflejará aquí. Las etiquetas marcadas indican las que se utilizan en la imagen actual.\\
+        
+        \textbf{File List: }En esta sección puedes ver cuántas imágenes ya han sido etiquetadas y cuáles no. Las casillas marcadas indican que la imagen tiene etiquetas, mientras que las casillas sin marcar significan que la imagen aún no tiene ninguna etiqueta.
+	
+	
+    
+    \section{Experimentación}
+		Una vez observado el funcionamiento del programa labelme y haber etiqutado las fotos de la carpeta puedes conseguir tu propia piedra, tomarle fotos y etiqutarlas para que funcione mejor el reconocimiento, mientrtas más fotos y posiciones se coloquen será mejor el entramiento que se hará posteriormente.
+	
+\end{document}
